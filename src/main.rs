@@ -40,8 +40,9 @@ fn main() {
     let terms = RicardianContract::default();
     let contract_data = ContractData { terms, media: None };
     let created = Timestamp::now();
-    let txid = "9fef7f1c9cd1dd6b9ac5c0a050103ad874346d4fdb7bcf954de2dfe64dd2ce05";
-    let beneficiary = Outpoint::new(Txid::from_hex(txid).unwrap(), 0);
+    let txid = "0018dc9fff99382ac228a6cbcbdddb0989329d85d95c1e354b74a488da324516";
+    let vout_index = 1;
+    let beneficiary = Outpoint::new(Txid::from_hex(txid).unwrap(), vout_index);
 
     const ISSUE: u64 = 1_000_000_000;
 
@@ -95,7 +96,8 @@ fn main() {
         .contract_iface(contract_id, rgb20().iface_id())
         .unwrap();
     let contract = Rgb20::from(contract);
-    let allocations = contract.fungible("assetOwner", &None).unwrap();
+    let owner = vec![beneficiary];
+    let allocations = contract.fungible("assetOwner", &owner).unwrap();
     eprintln!("{}", serde_json::to_string(&contract.spec()).unwrap());
 
     for FungibleAllocation { owner, witness, value } in allocations {
