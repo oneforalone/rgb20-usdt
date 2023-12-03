@@ -47,14 +47,11 @@ impl BtcWallet {
     }
 
     pub fn from_seeds(seeds: &str) -> Self {
-        let mnemonic = match bip39::Mnemonic::from_str(seeds) {
-            Ok(res) => res,
-            Err(err) => panic!("Can not import from {seeds}, error is: {err}"),
-        };
-        let entropy: [u8; 32] = match mnemonic.to_entropy().try_into() {
-            Ok(res) => res,
-            Err(err) => panic!("Error: {:?}", err),
-        };
+        let mnemonic = bip39::Mnemonic::from_str(seeds).expect("Can not convert seeds to mnemonic");
+        let entropy: [u8; 32] = mnemonic
+            .to_entropy()
+            .try_into()
+            .expect("Can not convert seeds to entropy");
 
         let mnemonic = Mnemonic::from_entropy(entropy, Language::English);
         BtcWallet {
