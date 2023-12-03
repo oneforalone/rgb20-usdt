@@ -1,5 +1,5 @@
 use bip32::{Language, Mnemonic, Prefix, XPrv, XPub};
-use hex::{FromHex, ToHex};
+use hex::FromHex;
 use rand_core::OsRng;
 use std::str::FromStr;
 
@@ -90,8 +90,28 @@ impl BtcWallet {
         }
     }
 
+    pub fn get_xprv_string(&self) -> String {
+        let xprv = self.get_xprv();
+        match self.addr_type {
+            BtcAddrType::P2PKH => xprv.to_string(Prefix::XPRV).as_str().to_owned(),
+            BtcAddrType::P2SH => xprv.to_string(Prefix::YPRV).as_str().to_owned(),
+            BtcAddrType::P2WPKH => xprv.to_string(Prefix::ZPRV).as_str().to_owned(),
+            BtcAddrType::Testnet => xprv.to_string(Prefix::TPRV).as_str().to_owned(),
+        }
+    }
+
     pub fn get_xpub(&self) -> XPub {
         self.get_xprv().public_key()
+    }
+
+    pub fn get_xpub_string(&self) -> String {
+        let xpub = self.get_xpub();
+        match self.addr_type {
+            BtcAddrType::P2PKH => xpub.to_string(Prefix::XPUB),
+            BtcAddrType::P2SH => xpub.to_string(Prefix::YPUB),
+            BtcAddrType::P2WPKH => xpub.to_string(Prefix::ZPUB),
+            BtcAddrType::Testnet => xpub.to_string(Prefix::TPUB),
+        }
     }
 }
 
@@ -118,12 +138,10 @@ mod tests {
         let mut wallet = BtcWallet::new();
         wallet.addr_type = BtcAddrType::P2PKH;
 
-        let xprv = wallet.get_xprv();
-        let xprv = xprv.to_string(Prefix::XPRV);
+        let xprv = wallet.get_xprv_string();
         assert!(xprv.starts_with("xprv"));
 
-        let xpub = wallet.get_xpub();
-        let xpub = xpub.to_string(Prefix::XPUB);
+        let xpub = wallet.get_xpub_string();
         assert!(xpub.starts_with("xpub"));
     }
 
@@ -132,12 +150,10 @@ mod tests {
         let mut wallet = BtcWallet::new();
         wallet.addr_type = BtcAddrType::P2SH;
 
-        let xprv = wallet.get_xprv();
-        let xprv = xprv.to_string(Prefix::YPRV);
+        let xprv = wallet.get_xprv_string();
         assert!(xprv.starts_with("yprv"));
 
-        let xpub = wallet.get_xpub();
-        let xpub = xpub.to_string(Prefix::YPUB);
+        let xpub = wallet.get_xpub_string();
         assert!(xpub.starts_with("ypub"));
     }
 
@@ -146,12 +162,10 @@ mod tests {
         let mut wallet = BtcWallet::new();
         wallet.addr_type = BtcAddrType::P2WPKH;
 
-        let xprv = wallet.get_xprv();
-        let xprv = xprv.to_string(Prefix::ZPRV);
+        let xprv = wallet.get_xprv_string();
         assert!(xprv.starts_with("zprv"));
 
-        let xpub = wallet.get_xpub();
-        let xpub = xpub.to_string(Prefix::ZPUB);
+        let xpub = wallet.get_xpub_string();
         assert!(xpub.starts_with("zpub"));
     }
 
@@ -175,8 +189,7 @@ mod tests {
         let mut wallet2 = BtcWallet::from_seeds(seeds_orig2);
         wallet2.addr_type = BtcAddrType::Testnet;
 
-        let xpub = wallet2.get_xpub();
-        let xpub = xpub.to_string(Prefix::TPUB);
+        let xpub = wallet2.get_xpub_string();
         let xpub_orig = "tpubDDFXYtk6MYAv7gvSwTXYaFBm2XJfzzrDsjBVSU1Cwo4BUgwCSWfX9KAhNgJFTDybaSzUhywUho9jfpot3QRAcB8ZpvhSTVixxiy5mHft9QL";
         assert_eq!(xpub.as_str(), xpub_orig);
     }
@@ -192,8 +205,7 @@ mod tests {
 
         assert_eq!(entropy, &entropy_orig);
 
-        let xpub = wallet.get_xpub();
-        let xpub = xpub.to_string(Prefix::TPUB);
+        let xpub = wallet.get_xpub_string();
         let xpub_orig = "tpubDCSgjFcLS9iZkN6H4BxuhUgabTchh3qqad49fYqndF595dnhcVTApsaEfGXXMVJTh2wrT2wKWPbcrSaX6VNMSaBp8NYThxHj3DA8oDiUNcK";
         assert_eq!(xpub.as_str(), xpub_orig);
     }
