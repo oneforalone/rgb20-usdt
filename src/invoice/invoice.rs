@@ -20,9 +20,9 @@
 // limitations under the License.
 
 use amplify::{Display, From};
-use bpstd::{Address, Network};
 use indexmap::IndexMap;
-use rgbstd::{AttachId, ContractId, SecretSeal};
+use invoice::{Address, Network};
+use rgb::{AttachId, ContractId, SecretSeal};
 use strict_encoding::{FieldName, TypeName};
 
 #[derive(Clone, Eq, PartialEq, Hash, Debug)]

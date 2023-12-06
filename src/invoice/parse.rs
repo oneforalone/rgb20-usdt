@@ -24,12 +24,12 @@ use std::num::ParseIntError;
 use std::str::FromStr;
 use amplify::{Display, Error, From};
 
-use bpstd::{Address, AddressNetwork, Network, UnknownNetwork};
 use fluent_uri::enc::EStr;
 use fluent_uri::Uri;
 use indexmap::IndexMap;
+use invoice::{Address, AddressNetwork, Network, UnknownNetwork};
 use percent_encoding::{utf8_percent_encode, AsciiSet, CONTROLS};
-use rgbstd::{ContractId, SecretSeal};
+use rgb::{ContractId, SecretSeal};
 use strict_encoding::{InvalidIdent, TypeName};
 
 use super::{Beneficiary, InvoiceState, RgbInvoice, RgbTransport};

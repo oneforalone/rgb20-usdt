@@ -5,14 +5,16 @@ use indexmap::IndexMap;
 use amplify::{Display, Error, From};
 use rgbstd::{
     containers::{Bindle, Transfer},
-    contract::{ContractId, GraphSeal},
+    contract::{GraphSeal},
     interface::TypedState,
     persistence::{Inventory, Stash, Stock},
     resolvers::ResolveHeight,
     validation::{ ConsignmentApi, ResolveTx, Status,},
 };
+use rgb::ContractId;
 use bp::{seals::txout::CloseMethod, Txid};
-use bpstd::{Network, Outpoint};
+use bpstd::{ Outpoint};
+use invoice::Network;
 use crate::invoice::{InvoiceState, RgbInvoice, RgbTransport,Beneficiary};
 
 #[derive(Clone, Eq, PartialEq, Debug, Display, Error, From)]

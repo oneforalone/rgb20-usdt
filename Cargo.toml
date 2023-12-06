@@ -35,3 +35,6 @@ rgb-core = { git = "https://github.com/RGB-WG/rgb-core", features = ["all"] }
 bitcoin = "0.30.1"
 chrono = "0.4.24"
 commit_verify = { version = "0.10.6", features = ["stl"] }
+bp-invoice = { version = "0.11.0-beta.2" }
+[patch.crates-io]
+bp-invoice = { git = "https://github.com/BP-WG/bp-std", branch = "v0.11" }

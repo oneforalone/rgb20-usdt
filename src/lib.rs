@@ -12,7 +12,7 @@ mod btc_wallet;
 mod invoice;
 mod issue;
 mod resolver;
-mod psbt;
+// mod psbt;
 
 use std::{collections::HashMap, path::PathBuf};
 use anyhow::Result;

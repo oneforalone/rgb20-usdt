@@ -22,9 +22,9 @@
 use std::str::FromStr;
 use amplify::none;
 
-use bpstd::Network;
+use invoice::Network;
+use rgb::ContractId;
 use rgbstd::stl::Precision;
-use rgbstd::ContractId;
 use strict_encoding::{fname, tn};
 
 use super::{Beneficiary, InvoiceState, RgbInvoice, RgbTransport, TransportParseError};

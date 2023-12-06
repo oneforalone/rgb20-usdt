@@ -409,6 +409,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "bp-invoice"
+version = "0.11.0-beta.2"
+source = "git+https://github.com/BP-WG/bp-std?branch=v0.11#664fa950efcb5bb653c9af4238c64e0610447200"
+dependencies = [
+ "amplify",
+ "bech32",
+ "bitcoin_hashes 0.13.0",
+ "bp-consensus 0.11.0-beta.2",
+]
+
+[[package]]
 name = "bp-seals"
 version = "0.10.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1617,6 +1628,7 @@ dependencies = [
  "bip39",
  "bitcoin",
  "bp-core",
+ "bp-invoice",
  "bp-seals 0.10.11",
  "bp-std",
  "chrono",
