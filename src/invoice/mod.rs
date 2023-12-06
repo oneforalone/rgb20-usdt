@@ -31,8 +31,9 @@ mod builder;
 mod create_invoice;
 
 pub use builder::RgbInvoiceBuilder;
-pub use invoice::{Beneficiary, InvoiceState, RgbInvoice, RgbTransport};
+pub use invoice::{Beneficiary, InvoiceState, RgbInvoice, RgbTransport,};
 pub use parse::{InvoiceParseError, TransportParseError};
+
 
 #[cfg(test)]
 mod test{
